@@ -14,12 +14,19 @@ public class Sprite : IUpdateable, IDrawable
     public float depthLayer = 0.0f;
     
     protected Texture2D _texture;
+
+    public SpriteEffects effects = SpriteEffects.None;
     
     protected Vector2 _origin;
     
-    public Sprite(ContentManager content, string spriteName)
+    protected Spritesheet _spritesheet;
+
+    protected Rectangle? sourceRectangle = null;
+    
+    public Sprite(string spriteName)
     {
-        _texture = content.Load<Texture2D>(spriteName);
+        _spritesheet = SpriteManager.GetSprite(spriteName);
+        _texture = _spritesheet.texture;
 
         _origin = new Vector2(_texture.Width * 0.5f, _texture.Height * 0.5f);
     }
@@ -35,12 +42,12 @@ public class Sprite : IUpdateable, IDrawable
         _spriteBatch.Draw(
             _texture,
             position,
-            null,
+            sourceRectangle,
             Color.White,
             MathHelper.ToRadians(rotation),
             _origin,
             scale,
-            SpriteEffects.None,
+            effects,
             depthLayer
         );
     }

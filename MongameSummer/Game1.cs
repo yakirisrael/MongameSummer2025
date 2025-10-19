@@ -10,6 +10,7 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+    private SpriteManager _spriteManager;
     private static List<IDrawable> _drawables = new List<IDrawable>();
     private static List<IUpdateable> _updateables= new List<IUpdateable>();
     public Game1()
@@ -32,7 +33,7 @@ public class Game1 : Game
         base.Initialize();
     }
 
-    private Sprite pacman;
+    private Animation pacman;
     private SpriteFont oswaldFont;
 
     public static float ScreenCenterWidth;
@@ -41,8 +42,13 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-        pacman = new Player(Content, "Images/pacman");
+        _spriteManager = new SpriteManager(Content);
+        
+        SpriteManager.AddSprite("player", "Images/pacman");
+        SpriteManager.AddSprite("egret", "Images/Birds/Bird3_Egret4", 4, 4);
+        
+        pacman = new Player();
+        pacman.Play(false, 10);
         
         Content.Load<Texture2D>("Images/logo");
         Content.Load<Texture2D>("Images/pong-atlas");
