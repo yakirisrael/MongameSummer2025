@@ -8,7 +8,28 @@ public class Collider : Sprite
     public Collider() : base("pixel")
     {
     }
+
+    public delegate void DoSomething(object obj);
+    public event DoSomething OnCollision;
+    public event DoSomething OnTrigger;
+    public bool Intersect(Collider other)
+    {
+        if (DestRectangle == null)
+            return false;
+        
+        return DestRectangle.Intersects(other.DestRectangle);
+    }
     
+    public void Notify(object obj)
+    {
+        if (isTrigger)
+            OnTrigger?.Invoke(obj);
+        else
+            OnCollision?.Invoke(obj);
+    }
+
+
+    public bool isTrigger = false;
     
     int thickness = 5;
     Color color = Color.White;
@@ -24,9 +45,9 @@ public class Collider : Sprite
         // top
         _spriteBatch.Draw(_texture,
             new Rectangle(
-                DestRectangle.Value.X,
-                DestRectangle.Value.Y,
-                DestRectangle.Value.Width,
+                DestRectangle.X,
+                DestRectangle.Y,
+                DestRectangle.Width,
                 thickness
             ), 
             color);
@@ -34,29 +55,29 @@ public class Collider : Sprite
         // left
         _spriteBatch.Draw(_texture,
             new Rectangle(
-                DestRectangle.Value.X,
-                DestRectangle.Value.Y,
+                DestRectangle.X,
+                DestRectangle.Y,
                 thickness,
-                DestRectangle.Value.Height
+                DestRectangle.Height
             ), 
             color);
         
         // right
         _spriteBatch.Draw(_texture,
             new Rectangle(
-                DestRectangle.Value.X + DestRectangle.Value.Width - thickness,
-                DestRectangle.Value.Y,
+                DestRectangle.X + DestRectangle.Width - thickness,
+                DestRectangle.Y,
                 thickness,
-                DestRectangle.Value.Height
+                DestRectangle.Height
             ), 
             color);
         
         // bottom
         _spriteBatch.Draw(_texture,
             new Rectangle(
-                DestRectangle.Value.X,
-                DestRectangle.Value.Y + DestRectangle.Value.Height - thickness,
-                DestRectangle.Value.Width,
+                DestRectangle.X,
+                DestRectangle.Y + DestRectangle.Height - thickness,
+                DestRectangle.Width,
                 thickness
             ), 
             color);

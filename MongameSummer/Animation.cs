@@ -87,6 +87,7 @@ public class Animation : Sprite
 
         base.Update(gameTime);
                 
-        DestRectangle = GetDestRectangle(sourceRectangle);
+        Rectangle nonNullRect = sourceRectangle ?? new Rectangle(0, 0, 0, 0);
+        DestRectangle = GetDestRectangle(nonNullRect);
     } 
 }

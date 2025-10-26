@@ -13,6 +13,18 @@ public class Player : Animation
         collider = SceneManager.Create<Collider>();
     }
 
+    public void OnCollision(object obj)
+    {
+    }
+    
+    public void OnTrigger(object obj)
+    {
+        if (obj == null) return;
+        
+        SceneManager.Remove(((Enemy)obj).collider);
+        SceneManager.Remove((IUpdateable)obj);
+    }
+
     private float speed = 0.2f;
     public override void Update(GameTime gameTime)
     {

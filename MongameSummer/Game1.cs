@@ -33,7 +33,7 @@ public class Game1 : Game
         base.Initialize();
     }
 
-    private Animation pacman;
+    private Player pacman;
     private SpriteFont oswaldFont;
 
     public static float ScreenCenterWidth;
@@ -49,10 +49,19 @@ public class Game1 : Game
 
         
         SpriteManager.AddSprite("egret", "Images/Birds/Bird3_Egret4", 4, 4);
-        
+        SpriteManager.AddSprite("duck", "Images/Birds/Bird2 Duck_1", 4, 4);
+
         pacman = SceneManager.Create<Player>();
         pacman.Play();
         
+        Enemy e = SceneManager.Create<Enemy>();
+        e.position = new Vector2(ScreenCenterWidth, ScreenCenterWidth);
+        e.scale = Vector2.One;
+        e.rotation = 0;
+        
+        e.Play();
+        e.LinkWithPlayer(pacman);
+        e.collider.isTrigger = true;
         
         Content.Load<Texture2D>("Images/logo");
         Content.Load<Texture2D>("Images/pong-atlas");

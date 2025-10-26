@@ -23,7 +23,7 @@ public class Sprite : IDrawable
 
     protected Rectangle? sourceRectangle = null;
 
-    public Rectangle? DestRectangle;
+    public Rectangle DestRectangle;
     
     public Sprite(string spriteName)
     {
@@ -33,12 +33,10 @@ public class Sprite : IDrawable
         _origin = new Vector2(_texture.Width * 0.5f, _texture.Height * 0.5f);
     }
     
-    protected Rectangle? GetDestRectangle(Rectangle? rect)
+    protected Rectangle GetDestRectangle(Rectangle rect)
     {
-        if (rect == null) return null;
-        
-        int width = (int)(rect.Value.Width * scale.X);
-        int height = (int)(rect.Value.Height * scale.Y);
+        int width = (int)(rect.Width * scale.X);
+        int height = (int)(rect.Height * scale.Y);
 
         int pos_x = (int)(position.X - _origin.X * scale.X);
         int pos_y  = (int)(position.Y - _origin.Y * scale.Y);
