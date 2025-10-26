@@ -8,6 +8,8 @@ namespace MongameSummer;
 public class Player : Animation
 {
     public Collider collider;
+    
+    Vector2 prevPosition;
     public Player() : base("egret")
     {
         collider = SceneManager.Create<Collider>();
@@ -15,6 +17,7 @@ public class Player : Animation
 
     public void OnCollision(object obj)
     {
+        position = prevPosition;
     }
     
     public void OnTrigger(object obj)
@@ -28,6 +31,8 @@ public class Player : Animation
     private float speed = 0.2f;
     public override void Update(GameTime gameTime)
     {
+        prevPosition = position;
+        
         KeyboardState state = Keyboard.GetState();
 
 

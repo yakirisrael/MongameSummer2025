@@ -5,6 +5,15 @@ namespace MongameSummer;
 
 public class Collider : Sprite
 {
+    public bool isTrigger = false;
+
+    #region  Debug Boundaries
+    
+    int thickness = 5;
+    Color color = Color.White;
+
+    #endregion
+    
     public Collider() : base("pixel")
     {
     }
@@ -28,12 +37,6 @@ public class Collider : Sprite
             OnCollision?.Invoke(obj);
     }
 
-
-    public bool isTrigger = false;
-    
-    int thickness = 5;
-    Color color = Color.White;
-    
     public override void Draw(SpriteBatch _spriteBatch)
     {
  

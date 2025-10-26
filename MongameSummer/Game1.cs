@@ -34,8 +34,10 @@ public class Game1 : Game
     }
 
     private Player pacman;
+    private Enemy enemy;
+    
     private SpriteFont oswaldFont;
-
+    
     public static float ScreenCenterWidth;
     public static float ScreenCenterHeight;
     
@@ -54,14 +56,13 @@ public class Game1 : Game
         pacman = SceneManager.Create<Player>();
         pacman.Play();
         
-        Enemy e = SceneManager.Create<Enemy>();
-        e.position = new Vector2(ScreenCenterWidth, ScreenCenterWidth);
-        e.scale = Vector2.One;
-        e.rotation = 0;
+        enemy = SceneManager.Create<Enemy>();
+        enemy.Play();
         
-        e.Play();
-        e.LinkWithPlayer(pacman);
-        e.collider.isTrigger = true;
+        enemy.position = new Vector2(Game1.ScreenCenterWidth + 300, Game1.ScreenCenterHeight + 300);
+        enemy.scale = new Vector2(0.2f, 0.2f);
+       
+        enemy.LinkWithPlayer(pacman);
         
         Content.Load<Texture2D>("Images/logo");
         Content.Load<Texture2D>("Images/pong-atlas");

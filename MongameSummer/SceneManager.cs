@@ -49,10 +49,13 @@ public class SceneManager : IDrawable
 
     public void Update(GameTime gameTime)
     {
-        foreach (var UpdateVar in updatables)
+        for (int i = 0; i < updatables.Count; i++)
+            updatables[i].Update(gameTime);
+        
+       /* foreach (var UpdateVar in updatables)
         {
             UpdateVar.Update(gameTime);
-        }
+        }*/
     }
 
     public void Draw(SpriteBatch spriteBatch)
