@@ -7,8 +7,10 @@ namespace MongameSummer;
 
 public class Player : Animation
 {
+    public Collider collider;
     public Player() : base("egret")
     {
+        collider = SceneManager.Create<Collider>();
     }
 
     private float speed = 0.2f;
@@ -37,6 +39,8 @@ public class Player : Animation
             position += -(speed * Vector2.UnitY)* (float)gameTime.ElapsedGameTime.TotalMilliseconds;
         }
 
-        base.Update(gameTime);  
+        base.Update(gameTime);
+
+        collider.DestRectangle = DestRectangle;
     }
 }

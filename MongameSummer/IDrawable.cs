@@ -2,7 +2,7 @@
 
 namespace MongameSummer;
 
-public interface IDrawable
+public interface IDrawable : IUpdateable
 {
     void Draw(SpriteBatch spriteBatch);
 }

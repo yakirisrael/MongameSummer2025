@@ -6,11 +6,11 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace MongameSummer;
 
-public class Sprite : IUpdateable, IDrawable
+public class Sprite : IDrawable
 {
     public Vector2 position = Vector2.Zero;
     public float rotation = 0.0f;
-    public float scale = 1.0f;
+    public Vector2 scale = Vector2.One;
     public float depthLayer = 0.0f;
     
     protected Texture2D _texture;
@@ -22,6 +22,8 @@ public class Sprite : IUpdateable, IDrawable
     protected Spritesheet _spritesheet;
 
     protected Rectangle? sourceRectangle = null;
+
+    public Rectangle? DestRectangle;
     
     public Sprite(string spriteName)
     {
@@ -30,10 +32,23 @@ public class Sprite : IUpdateable, IDrawable
 
         _origin = new Vector2(_texture.Width * 0.5f, _texture.Height * 0.5f);
     }
+    
+    protected Rectangle? GetDestRectangle(Rectangle? rect)
+    {
+        if (rect == null) return null;
+        
+        int width = (int)(rect.Value.Width * scale.X);
+        int height = (int)(rect.Value.Height * scale.Y);
+
+        int pos_x = (int)(position.X - _origin.X * scale.X);
+        int pos_y  = (int)(position.Y - _origin.Y * scale.Y);
+
+        return new Rectangle(pos_x, pos_y, width, height);
+    }
 
     public virtual void Update(GameTime gameTime)
     {
-        
+        DestRectangle = GetDestRectangle(_texture.Bounds);
     }
     
     public virtual void Draw(SpriteBatch _spriteBatch)

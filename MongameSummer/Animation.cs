@@ -86,5 +86,7 @@ public class Animation : Sprite
         }
 
         base.Update(gameTime);
+                
+        DestRectangle = GetDestRectangle(sourceRectangle);
     } 
 }

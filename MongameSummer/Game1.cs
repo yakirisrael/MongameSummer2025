@@ -45,19 +45,20 @@ public class Game1 : Game
         _spriteManager = new SpriteManager(Content);
         
         SpriteManager.AddSprite("player", "Images/pacman");
+        SpriteManager.AddSprite("pixel", "Images/pixel");
+
+        
         SpriteManager.AddSprite("egret", "Images/Birds/Bird3_Egret4", 4, 4);
         
-        pacman = new Player();
-        pacman.Play(false, 10);
+        pacman = SceneManager.Create<Player>();
+        pacman.Play();
+        
         
         Content.Load<Texture2D>("Images/logo");
         Content.Load<Texture2D>("Images/pong-atlas");
-        
-        _updateables.Add(pacman);
-        _drawables.Add(pacman);
 
         pacman.position = new Vector2(Game1.ScreenCenterWidth, Game1.ScreenCenterHeight);
-        pacman.scale = 0.2f;
+        pacman.scale = new Vector2(0.2f, 0.2f);
         
         oswaldFont = Content.Load<SpriteFont>("Fonts/Oswald");
         
@@ -72,10 +73,9 @@ public class Game1 : Game
 
         // TODO: Add your update logic here
 
-        foreach (var UpdateVar in _updateables)
-        {
-            UpdateVar.Update(gameTime);
-        }
+
+        SceneManager.Instance.Update(gameTime);
+
         
         base.Update(gameTime);
     }
@@ -87,11 +87,8 @@ public class Game1 : Game
         // TODO: Add your drawing code here
         _spriteBatch.Begin();
         
-        foreach (var DrawVar in _drawables)
-        {
-            DrawVar.Draw(_spriteBatch);
-        }
-        
+       
+        SceneManager.Instance.Draw(_spriteBatch);
         
 
         string text = "Hello Monogame!";
